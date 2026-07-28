@@ -62,3 +62,9 @@ logs/
 tmp/
 temp/
 .cache/
+
+# skill-creator generated workspaces
+skills/*-workspace/
+
+# temporary skills imported with skill.sh
+.agents/

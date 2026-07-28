@@ -1,0 +1,50 @@
+{
+  "skill_name": "ksdd.specify",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Hey, our team's building an expense-splitting feature for Wavo, our peer-to-peer payments app (mobile only right now, iOS and Android). Basically when a group of friends splits a restaurant bill, one person pays and the others owe them back through the app. Can you write up a product spec for this so we can review it with the team before eng starts scoping it?",
+      "expected_output": "A product spec saved to ./specs/[slug]/product-spec.md following the template structure, with numbered functional requirements for the bill-splitting flow (who pays, how others get notified, how repayment is tracked/settled), scoped explicitly to mobile/iOS/Android, and clarifying questions asked (or assumptions clearly noted) about things like group size limits, currency handling, what happens if someone doesn't pay, and whether this integrates with existing payment rails in the app.",
+      "files": [],
+      "assertions": [
+        "Output is a markdown document saved as a file (not just conversational text)",
+        "Document has an Overview/summary section explaining the bill-splitting problem and who it's for",
+        "Document has a Goals section with at least one measurable or falsifiable success criterion (not just 'users are happy')",
+        "Document lists numbered functional requirements (e.g. FR-1, FR-2, or equivalent explicit numbering) for the core splitting/repayment flow",
+        "Document explicitly scopes the feature to mobile (iOS/Android), matching what the user stated",
+        "Document has an Out of Scope section that excludes at least one plausible adjacent feature (e.g. web app, group expense tracking beyond restaurants, international/multi-currency)",
+        "Document does not prescribe implementation details (no specific database schema, API endpoint design, or code-level architecture)",
+        "Any unanswered questions from the prompt (e.g. what happens if someone doesn't repay, group size limits) are handled via explicitly labeled assumptions rather than silently invented as fact"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We're a project management SaaS (like a lighter-weight Jira). Our enterprise customers keep asking for a proper audit log - who did what, when, exportable for compliance. I need a PRD I can bring to the product review meeting on Thursday. We're targeting our Team and Enterprise tiers only, not the free tier.",
+      "expected_output": "A product spec saved to ./specs/[slug]/product-spec.md following the template structure, scoped to Team/Enterprise tiers only (explicitly excluding free tier), with numbered functional requirements covering what actions get logged, retention/export behavior, and compliance-oriented constraints (e.g. tamper-evidence, access control on who can view the log). Clarifying questions should surface tier boundaries, retention period, and export format if not already specified.",
+      "files": [],
+      "assertions": [
+        "Output is a markdown document saved as a file (not just conversational text)",
+        "Document explicitly states the feature is scoped to Team and Enterprise tiers only, excluding the free tier",
+        "Document lists numbered functional requirements (e.g. FR-1, FR-2, or equivalent explicit numbering) covering what actions/events get logged",
+        "Document addresses compliance-relevant constraints (e.g. export capability, retention, access control on who can view the log, tamper-evidence) in the constraints section",
+        "Document has an Out of Scope section that excludes at least one plausible adjacent feature (e.g. free tier access, real-time alerting on audit events, SIEM integration)",
+        "Document does not prescribe implementation details (no specific database/table design, storage technology, or code-level architecture)",
+        "Where the prompt didn't specify details (e.g. exact retention period, exact export format), the document either asks a clarifying question or explicitly labels an assumption rather than stating an invented specific as settled fact"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I run product for an e-commerce order management API. We want to let merchants subscribe to webhooks for order status changes (created, shipped, delivered, cancelled) instead of polling our API. Need a spec that our solutions engineers can also use to talk to customers about what's coming. This is a v1, so keep it lean.",
+      "expected_output": "A product spec saved to ./specs/[slug]/product-spec.md following the template structure, written for a technical/platform audience (solutions engineers + merchants) but still focused on WHAT/WHY rather than implementation (e.g. no payload schema or retry algorithm design). Numbered functional requirements cover the four named event types, subscription management, and delivery expectations at a product level. Out of Scope should explicitly note this is v1/lean and list what's deferred (e.g. additional event types, custom filtering).",
+      "files": [],
+      "assertions": [
+        "Output is a markdown document saved as a file (not just conversational text)",
+        "Document lists numbered functional requirements (e.g. FR-1, FR-2, or equivalent explicit numbering) that cover all four named event types: created, shipped, delivered, cancelled",
+        "Document addresses subscription management (merchants being able to subscribe/configure which events they receive) at a product level",
+        "Document does not specify implementation-level details like exact JSON payload schema, HTTP retry/backoff algorithm, or signature verification scheme (those belong to a technical spec)",
+        "Document has an Out of Scope section that explicitly reflects the 'v1, keep it lean' instruction by deferring at least one plausible feature (e.g. custom event filtering, additional event types, webhook replay/history UI)",
+        "Document is written in language usable by a non-engineering audience (solutions engineers explaining to merchant customers), not deep technical jargon throughout"
+      ]
+    }
+  ]
+}
