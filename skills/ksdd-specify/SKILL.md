@@ -1,5 +1,5 @@
 ---
-name: ksdd.specify
+name: ksdd-specify
 description: Creates a Product Specification (product spec / PRD) — the foundational "what and why" document that planning and implementation work builds on. Use whenever the user asks to write a product spec, PRD, or requirements doc for a new feature, product, or capability, or wants to scope/define one before anyone starts building — even if they don't say "spec" or "PRD" outright (e.g. "let's nail down what's actually being built for X", "the requirements for this need to be written down"). Do NOT use this for technical/engineering specs, system architecture, or task/implementation breakdowns — those belong to a later phase and assume this spec already exists.
 ---
 

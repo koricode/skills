@@ -1,0 +1,56 @@
+{
+  "skill_name": "ksdd-plan",
+  "evals": [
+    {
+      "id": 1,
+      "name": "brownfield-node-csv-export",
+      "prompt": "We already wrote the product spec for the admin dashboard CSV export feature, it's at specs/admin-csv-export/product-spec.md. Can you put together the technical implementation plan for it so the team can start building?",
+      "expected_output": "A tech spec saved to ./specs/admin-csv-export/tech-spec.md following the template, that reads the existing product spec's FR-1..FR-5, discovers the project's real stack from package.json/README.md (Node.js/Express, PostgreSQL via pg, Jest, layered routes/controllers/services/repositories architecture, Postgres-backed job polling for background work) instead of inventing one, and expresses interfaces/commands in that stack. References FR numbers rather than restating requirements.",
+      "files": [
+        "evals/fixtures/brownfield-node-csv-export/specs/admin-csv-export/product-spec.md",
+        "evals/fixtures/brownfield-node-csv-export/package.json",
+        "evals/fixtures/brownfield-node-csv-export/README.md"
+      ],
+      "assertions": [
+        "A tech-spec.md file is saved at specs/admin-csv-export/tech-spec.md (not just conversational text)",
+        "The document references at least 3 of the product spec's FR numbers (FR-1 through FR-5) rather than restating those requirements as new prose",
+        "The document explicitly names the real discovered stack (Node.js/Express, PostgreSQL/pg, Jest) rather than a generic or invented stack (e.g. no Python/Django, no MongoDB, no unexplained new framework)",
+        "Code/interface examples in the document are written in JavaScript/TypeScript matching the project's Express-based layered architecture (routes/controllers/services/repositories), not a placeholder or unrelated language",
+        "The document follows the template's section structure (e.g. has an Executive Summary, System Architecture, Implementation Design, Testing Approach, Development Sequencing sections)",
+        "The document addresses the async/background-job requirement (FR-4, exports over 5,000 rows) using the project's existing job-polling approach rather than introducing a new message queue without justification",
+        "The document stays under roughly 2,000 words"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "missing-product-spec-blocks",
+      "prompt": "Our team wants to add a 'favorite items' feature to our shopping app so users can bookmark products they like and find them again later. Can you write up the technical implementation plan / architecture doc for this so engineering can start building it?",
+      "expected_output": "The skill checks for ./specs/[slug]/product-spec.md, finds nothing (no product spec was ever created for this feature), and stops — telling the user to create the product spec first (e.g. via ksdd-specify) instead of drafting a tech spec on top of an invented or assumed set of requirements.",
+      "files": [],
+      "assertions": [
+        "No tech-spec.md or equivalent implementation-plan document is produced",
+        "The response explicitly states that a product spec/PRD for this feature doesn't exist yet",
+        "The response tells the user to create the product spec first (e.g. pointing to a product-spec/PRD-creation step or ksdd-specify), rather than silently proceeding",
+        "The response does not invent or write a product-spec.md on the user's behalf to work around the missing prerequisite",
+        "The response does not fabricate specific functional requirements or architecture decisions as if a spec already existed"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "greenfield-no-architecture-docs",
+      "prompt": "We just finished the product spec for price watchlist alerts, it's saved at specs/watchlist-alerts/product-spec.md. This is a brand new repo, nothing's been built yet and there's no established tech stack. Can you put together the technical plan for it?",
+      "expected_output": "A tech spec saved to ./specs/watchlist-alerts/tech-spec.md that reads the product spec's FR-1..FR-4, recognizes there's no discoverable architecture (empty repo, no manifests/docs), and either asks the user for stack/architecture direction or clearly labels any proposed stack/architecture choice as a proposal/assumption rather than presenting it as an established project convention.",
+      "files": [
+        "evals/fixtures/greenfield-no-architecture-docs/specs/watchlist-alerts/product-spec.md"
+      ],
+      "assertions": [
+        "A tech-spec.md file is saved at specs/watchlist-alerts/tech-spec.md",
+        "The document references the product spec's FR numbers (FR-1 through FR-4) rather than restating them",
+        "Any proposed tech stack or architecture is explicitly labeled as a proposal/assumption/recommendation (e.g. under an assumptions or key-decisions section), not presented as an established project convention",
+        "The document or an accompanying notes file surfaces the lack of existing architecture as something that was noticed and addressed, rather than silently picking a stack with no acknowledgment",
+        "The document addresses FR-4's open question (notification channel) explicitly rather than silently assuming one particular channel as settled fact",
+        "The document follows the template's section structure"
+      ]
+    }
+  ]
+}
