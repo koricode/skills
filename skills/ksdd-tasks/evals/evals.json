@@ -1,0 +1,47 @@
+{
+  "skill_name": "ksdd-tasks",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We've got the product spec and tech spec done for the admin CSV export feature (specs/admin-csv-export/). Can you break this into a task list the team can start picking up?",
+      "expected_output": "A specs/admin-csv-export/tasks.md summary plus one file per top-level task under specs/admin-csv-export/tasks/, sequenced by real dependency (migration/repository before service/routes before async job/worker before final integration tests), each referencing FR-N and tech-spec.md sections rather than restating them, each with validation steps naming the project's real toolchain (Jest/supertest, not a generic placeholder).",
+      "files": [],
+      "assertions": [
+        "A tasks.md summary file is saved at specs/admin-csv-export/tasks.md (not just conversational text)",
+        "Individual task files are saved under specs/admin-csv-export/tasks/ (e.g. 1_task.md, 2_task.md), one per top-level task",
+        "The task list is capped at roughly 15 top-level tasks, with related work grouped rather than exploded into many thin tasks",
+        "Tasks are ordered by real dependency following the tech spec's Development Sequencing/Build Order (e.g. migration/repository before service/routes, before the async job/worker, before end-to-end integration tests) rather than an arbitrary order",
+        "Task files reference FR numbers (FR-1 through FR-5) and/or tech-spec.md sections rather than restating those requirements or design decisions as new prose",
+        "Each task file's validation section names the project's real toolchain (Jest, supertest) rather than a generic placeholder like 'write tests'",
+        "Top-level tasks use X.0 numbering with X.Y subtasks inside the same file",
+        "Task files do not duplicate the tech spec's SQL/interface code blocks wholesale — they point to tech-spec.md instead of re-pasting the design"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "The tech spec for price watchlist alerts is done, it's at specs/watchlist-alerts/. Nothing's built yet. Can you turn this into a task breakdown?",
+      "expected_output": "A specs/watchlist-alerts/tasks.md summary plus per-task files under specs/watchlist-alerts/tasks/, sequenced sensibly for a greenfield build with no existing code, validation steps drawn from whatever toolchain the tech spec proposed (treated as settled, not re-litigated), tasks still independently completable and incremental.",
+      "files": [],
+      "assertions": [
+        "A tasks.md summary file is saved at specs/watchlist-alerts/tasks.md",
+        "Individual task files are saved under specs/watchlist-alerts/tasks/, one per top-level task",
+        "Validation steps in each task reference the toolchain the tech spec actually proposed, rather than a fabricated one or a generic placeholder, and are not skipped just because the repo is greenfield",
+        "Tasks remain incremental and independently completable despite there being no existing code to explore",
+        "The task list is capped at roughly 15 top-level tasks and ordered by real dependency (data/domain before integrations, before final validation)",
+        "Task files reference FR numbers and/or tech-spec.md sections rather than restating requirements or design decisions as new prose"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We've got the product spec written for the admin CSV export feature at specs/admin-csv-export/product-spec.md. Can you break it down into a task list?",
+      "expected_output": "No tasks.md or task files produced. The response identifies that tech-spec.md specifically is missing (not the product spec, which does exist) and points the user to ksdd-plan to produce it first, without fabricating a tech spec or task breakdown to work around the gap.",
+      "files": [],
+      "assertions": [
+        "No tasks.md or task files are created under specs/admin-csv-export/",
+        "The response explicitly identifies tech-spec.md specifically as the missing prerequisite, not the product spec (which does exist)",
+        "The response points the user to ksdd-plan (not ksdd-specify) to produce the missing tech spec first",
+        "The response does not fabricate tech-spec content or a task breakdown to work around the missing prerequisite"
+      ]
+    }
+  ]
+}
