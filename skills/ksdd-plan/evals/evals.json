@@ -18,7 +18,8 @@
         "Code/interface examples in the document are written in JavaScript/TypeScript matching the project's Express-based layered architecture (routes/controllers/services/repositories), not a placeholder or unrelated language",
         "The document follows the template's section structure (e.g. has an Executive Summary, System Architecture, Implementation Design, Testing Approach, Development Sequencing sections)",
         "The document addresses the async/background-job requirement (FR-4, exports over 5,000 rows) using the project's existing job-polling approach rather than introducing a new message queue without justification",
-        "The document stays under roughly 2,000 words"
+        "The document's prose (excluding code/SQL blocks) stays under roughly 2,000 words",
+        "The Data Models section includes real SQL (e.g. CREATE TABLE/migration DDL and at least one key query) for the export-job/audit-log tracking implied by FR-4/FR-5, rather than only a prose description of the schema"
       ]
     },
     {
@@ -49,7 +50,8 @@
         "Any proposed tech stack or architecture is explicitly labeled as a proposal/assumption/recommendation (e.g. under an assumptions or key-decisions section), not presented as an established project convention",
         "The document or an accompanying notes file surfaces the lack of existing architecture as something that was noticed and addressed, rather than silently picking a stack with no acknowledgment",
         "The document addresses FR-4's open question (notification channel) explicitly rather than silently assuming one particular channel as settled fact",
-        "The document follows the template's section structure"
+        "The document follows the template's section structure",
+        "The Data Models section includes concrete SQL (e.g. CREATE TABLE DDL and a key query) for the watchlist items and their thresholds, clearly labeled as a proposed schema rather than an established convention"
       ]
     }
   ]

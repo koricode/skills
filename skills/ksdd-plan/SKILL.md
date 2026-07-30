@@ -1,6 +1,6 @@
 ---
 name: ksdd-plan
-description: Creates a Technical Implementation Plan (tech spec) that translates an existing product spec's requirements into concrete engineering decisions — architecture, components, interfaces, data models, integration points, test strategy, and build sequencing. Use whenever the user asks to plan the implementation, design the architecture, or write a tech spec / engineering design doc for a feature that already has a product spec — even if they don't say "tech spec" outright (e.g. "how should we actually build this", "let's figure out the architecture for X", "I need an engineering design doc before sprint planning", "what's the technical approach here"). Always grounds decisions in the project's real architecture — existing code, ADRs, or docs — or asks for that context explicitly; never invents a stack or pattern the project doesn't use. Do NOT use this to write the product spec/PRD itself (use ksdd-specify first), to break work into individual tickets/tasks, or to write implementation code directly.
+description: Creates a Technical Implementation Plan (tech spec) that translates an existing product spec's requirements into concrete engineering decisions, grounded in the project's real architecture rather than an invented stack. Use whenever the user wants the technical/engineering design for a feature that already has a product spec — even if they don't say "tech spec" outright (e.g. "how should we actually build this", "let's figure out the architecture for X", "I need an engineering design doc before sprint planning", "what's the technical approach here"). Do NOT use this to write the product spec/PRD itself (use ksdd-specify first), to break work into individual tickets/tasks, or to write implementation code directly.
 ---
 
 # Create Technical Implementation Plan
@@ -12,7 +12,7 @@ description: Creates a Technical Implementation Plan (tech spec) that translates
 2. Verify the product spec exists at `./specs/[feature-slug]/product-spec.md`. If it's missing, stop and tell the user to run `ksdd-specify` first — this skill designs HOW to build something whose WHAT and WHY should already be settled.
 
 **Step 2: Read the Product Spec (Required)**
-1. Read the product spec completely — do not skim or skip.
+1. Read the product spec end-to-end before extracting anything from it.
 2. Extract the numbered functional requirements (FR-1, FR-2, ...), goals, and high-level constraints.
 3. Note any assumptions the product spec already flagged — those are inputs here, not open questions to re-litigate.
 
@@ -50,12 +50,13 @@ This is the step that keeps the plan honest. A tech spec is only as good as the 
 
 **Step 8: Draft the Plan (Required)**
 1. Read the template at `assets/tech-spec-template.md` in full and follow its structure — don't skip or reorder sections.
-2. Write for HOW, not WHAT/WHY — the product spec already owns the problem and the goals. If you catch yourself restating a requirement instead of designing for it, cut it.
-3. Reference the product spec's FR numbers (e.g. "supports FR-2, FR-4") instead of restating those requirements in prose — one source of truth per requirement.
-4. Keep the document under ~2,000 words. Depth should go into decisions and interfaces, not padding.
+2. Write for HOW: if you catch yourself restating a requirement instead of designing for it, cut it.
+3. Reference the product spec's FR numbers (e.g. "supports FR-2, FR-4") rather than restating requirements in prose.
+4. Keep the prose under ~2,000 words — code blocks (interfaces, SQL, commands) don't count against this budget, so don't compress or skip them to stay under it. Depth should go into decisions and interfaces, not padding.
 5. Write every example — interfaces, schemas, commands — in the project's actual language and toolchain from Step 3. If none is established yet, say so and pick something reasonable, explicitly flagged as a proposal.
-6. Prefer existing libraries and patterns already used in the project over introducing new ones, unless there's a real gap they don't cover — and justify the exception if you do.
-7. Give validation/test commands that match the real toolchain discovered in Step 3 (e.g. the project's actual test runner and build tool) rather than a generic placeholder.
+6. Show, don't describe: wherever the feature touches persisted data, include the real SQL — `CREATE TABLE`/migration DDL and the key queries the feature will run — not a prose summary of the schema. The same goes for any other non-trivial logic: a short code snippet pins down exactly what gets built, where a paragraph leaves it open to reinterpretation once ticket-writing and implementation take over downstream.
+7. Prefer existing libraries and patterns already used in the project over introducing new ones, unless there's a real gap they don't cover — and justify the exception if you do.
+8. Give validation/test commands that match the real toolchain discovered in Step 3 (e.g. the project's actual test runner and build tool) rather than a generic placeholder.
 
 **Step 9: Save the Plan (Required)**
 1. Save the document to `./specs/[feature-slug]/tech-spec.md`.
@@ -67,11 +68,12 @@ This is the step that keeps the plan honest. A tech spec is only as good as the 
 
 ## Core Principles
 - The tech spec is about HOW, not WHAT or WHY — those belong to the product spec this builds on.
-- Ground every technical decision in the project's real architecture: discovered docs/code, or an explicit answer from the user. Never invent a stack.
+- Ground every technical decision in the project's real architecture (Step 3) — never an invented stack.
 - Give each requirement a single source of truth — reference the product spec's FR-N rather than restating it.
 - Prefer simple, evolvable architecture with clear interfaces over clever or speculative design.
 - Build in testability and observability from the start, using the project's existing tooling rather than proposing new tooling by default.
 - Prefer libraries and patterns the project already uses over custom or novel solutions.
+- Show, don't describe: real code and SQL (Step 8.6) carry more signal into task breakdown and implementation than prose descriptions of the same thing.
 
 ## Error Handling
 - If `product-spec.md` doesn't exist at the expected path, stop and tell the user to create it with `ksdd-specify` first.

@@ -30,11 +30,11 @@ interface SaveOrderUseCase {
 
 ### Data Models
 
-[Define the essential data structures:
+[Define the essential data structures — prefer real code/SQL over descriptions of it:
 
 - Core domain entities (if applicable)
 - Request/response types
-- Database schema changes (if applicable)]
+- Database schema changes: the actual `CREATE TABLE`/migration DDL in the project's SQL dialect, plus the key queries this feature will run — not just a description of the schema (if applicable)]
 
 ### API / Interface Contracts
 
